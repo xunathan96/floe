@@ -1,0 +1,6 @@
+!INSTANCE
+module: data.real.higgs.HiggsDataset
+args:
+  db_path: data/cache/higgs/HIGGS.db
+  transform: !MODULE data.transform.identity
+  seed: 0

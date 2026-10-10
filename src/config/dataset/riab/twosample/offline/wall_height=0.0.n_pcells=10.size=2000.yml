@@ -1,0 +1,9 @@
+!INSTANCE
+module: data.real.riab.RatInABox_TwoSample
+args:
+  size: 2000
+  n_cells: 10
+  wall_height: 0.0
+  wall_geometry: line_of_sight
+  transform: !MODULE data.transform.identity
+  seed: 0

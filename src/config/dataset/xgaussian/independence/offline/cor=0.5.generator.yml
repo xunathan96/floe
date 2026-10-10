@@ -1,0 +1,9 @@
+# -----------------------
+#    DATASET SETTINGS
+# -----------------------
+!INSTANCE
+module: data.toy.xgaussian.IndependenceGenerator
+args:
+  cor: 0.5
+  transform: !MODULE data.transform.identity
+  seed: null

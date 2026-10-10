@@ -1,0 +1,12 @@
+# -----------------------
+#    DATASET SETTINGS
+# -----------------------
+!INSTANCE
+module: data.toy.blobs.TwoSampleGenerator
+args:
+  isotropy: [0.83, 0.56, 0.29, 0.45, 0.76, 0.30, 0.71, 0.31, 0.41]
+  angle: [269, 59, 312, 256, 98, 45, 281, 241, 122]
+  transform: !MODULE data.transform.identity
+  seed: null
+
+# randomly generated isotropy and angles per blob, which are hardcoded here for reproducibility

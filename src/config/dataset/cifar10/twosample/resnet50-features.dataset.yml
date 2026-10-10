@@ -1,0 +1,6 @@
+!INSTANCE
+module: data.real.cifar10.CIFARFeatureDataset
+args:
+  src_dir: data/cache/cifar10/processed
+  transform: !MODULE data.transform.identity
+  seed: 0

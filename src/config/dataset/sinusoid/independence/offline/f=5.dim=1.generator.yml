@@ -1,0 +1,14 @@
+# -----------------------
+#    DATASET SETTINGS
+# -----------------------
+!INSTANCE
+module: data.toy.sinusoid.IndependenceGenerator
+args:
+  frequency: 5
+  amplitude: 1
+  dim: 1
+  transform: !MODULE data.transform.identity
+  seed: null
+
+
+

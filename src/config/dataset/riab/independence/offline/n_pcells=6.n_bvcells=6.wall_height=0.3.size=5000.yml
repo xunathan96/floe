@@ -1,0 +1,10 @@
+!INSTANCE
+module: data.real.riab.RatInABox_Independence
+args:
+  size: 5000
+  n_pcells: 6
+  n_bvcells: 6
+  wall_height: 0.3
+  wall_geometry: line_of_sight
+  transform: !MODULE data.transform.identity
+  seed: 0

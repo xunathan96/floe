@@ -1,0 +1,10 @@
+# -----------------------
+#    DATASET SETTINGS
+# -----------------------
+!INSTANCE
+module: data.toy.xgaussian.TwoSampleGenerator
+args:
+  corx: 0.65
+  cory: 0.
+  transform: !MODULE data.transform.identity
+  seed: null
