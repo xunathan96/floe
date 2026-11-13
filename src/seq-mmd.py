@@ -29,7 +29,7 @@ def main(args):
     NTESTS = args.n_tests
     LEVEL = args.level
     # critic settings
-    BANDWIDTH = args.bandwidth
+    BANDWIDTH = jnp.atleast_1d(args.bandwidth)
     SCALE = args.scale
     CRITIC_NORM = 1 / jnp.sqrt(2*SCALE)
     PRED_STRAT = args.pred_strat
@@ -65,7 +65,7 @@ def main(args):
     datastream = stream(dataloader)
 
     # batch kernel functions
-    kernel = partial(gaussian, scale=SCALE)  # use tree_utils.Partial if parameters (i.e. scale) is traced
+    kernel = partial(gaussian, scale=SCALE)
     kernel = jax.vmap(jax.vmap(jax.vmap(kernel, in_axes=(None,0,None)), in_axes=(0,None,None)), in_axes=(None,None,0))
 
     def payoff(X, Y):
@@ -192,7 +192,7 @@ def parse_args(args=None):
     parser.add_argument("--exp-id", type=str)
     parser.add_argument("--save", action="store_true", help="save the config and results to the experiment directory.")
     parser.add_argument("--return-stats", action="store_true", help="also return simulation auxliary values like bets.")
-    parser.add_argument("--dataset", type=str, help="dataset config file.")
+    parser.add_argument("--dataset", type=str, required=True, help="dataset config file.")
     # test params
     parser.add_argument("--n-steps", default=1000, type=int, help="maximum number of steps to run (default=1000).")
     parser.add_argument("--n-tests", default=100, type=int, help="number of tests to average over (default=100).")
@@ -203,9 +203,9 @@ def parse_args(args=None):
     parser.add_argument("--scale", default=1.0, type=float)
     # bet params
     parser.add_argument("--bet-strat", default="grapa", choices=["ons", "grapa", "floe", "portfolio", "star"], help="betting strategy (default='grapa')")
-    parser.add_argument("--bet-min", default=0.0, type=float, help="minimum possible bets (default=0.)")
-    parser.add_argument("--bet-max", default=0.99, type=float, help="maximum possible bets (default=1.)")
-    parser.add_argument("--bet-prior", default="beta", choices=["uniform", "beta"], help="choice of prior for the universal portfolio algorithm (default='uniform').")
+    parser.add_argument("--bet-min", default=0.0, type=float, help="minimum possible bets (default=0.0)")
+    parser.add_argument("--bet-max", default=0.99, type=float, help="maximum possible bets (default=0.99)")
+    parser.add_argument("--bet-prior", default="beta", choices=["uniform", "beta"], help="choice of prior for the universal portfolio algorithm (default='beta').")
     # bet regularization
     parser.add_argument("--bet-reg", action="store_true")
     parser.add_argument("--alpha", default=0.1, type=float)
@@ -216,17 +216,7 @@ def parse_args(args=None):
 
 
 if __name__ == '__main__':
-    dataset = "config/dataset/xgaussian/twosample/offline/corx=0.65.cory=0.generator.yml"
-    # dataset = "config/dataset/sinusoid/twosample/offline/dim=2.f=3.5.generator.yml"
-    # dataset = "config/dataset/blobs/twosample/offline/isotropy=custom.angle=custom.generator.yml"
-
-    # dataset = "config/dataset/riab/twosample/offline/wall_height=0.3.n_pcells=10.size=2000.yml"
-    # dataset = "config/dataset/higgs/twosample/dataset.yml"
-    # dataset = "config/dataset/cifar10/twosample/resnet50-features.dataset.yml"
-
     args = parse_args()
-    args.dataset = args.dataset or dataset
-
     jnp.set_printoptions(precision=4, linewidth=10_000)
     print(f"bandwidth: {args.bandwidth}")
     info = main(args)

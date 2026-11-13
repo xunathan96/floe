@@ -153,8 +153,8 @@ def access_db(db_path, table_name):
 
 
 
-def main():    
-    csv_path = Path("../cache/higgs/HIGGS.csv")
+def main():
+    csv_path = Path("data/cache/higgs/HIGGS.csv")
     db_path = csv_path.with_suffix(".db")
     csv_to_sql(csv_path, db_path)
     # access_db(db_path, table_name="higgs")
